@@ -1,7 +1,7 @@
 import discord
 import os
 
-client = discord.client()
+client = discord.Client()
 bot_token = os.environ['DISCORD_BOT_TOKEN']
 trigger_char = "?"
 

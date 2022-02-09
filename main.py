@@ -26,9 +26,10 @@ DB["indicators_of_sadness"] = [
 ]
 
 def get_inspiring_quote():
-	response = Requests.get("https://www.zenquotes.io/api/Random")
+	response = Requests.get("https://www.zenquotes.io/api/random")
 	data = JSON.loads(response.text)
-	return data[0]['q'] + " -" + data[0]['a']
+	print(data)
+	return data[0]['q'] + "\n - " + data[0]['a']
 
 def add_encouragement(new_msg):
 	if "encouragements" in DB.keys():

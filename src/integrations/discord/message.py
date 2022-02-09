@@ -1,5 +1,6 @@
 # /src/integrations/discord/message.py
 import re as Regex
+from main import discord_trigger_char, discord_args_delimiter
 
 # parses discord's event messages into a common API
 class Message:

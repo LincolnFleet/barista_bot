@@ -1,8 +1,8 @@
-import discord
-import os
+import discord as DISCORD
+import os as OS
 
-client = discord.Client()
-bot_token = os.environ['DISCORD_BOT_TOKEN']
+client = DISCORD.Client()
+bot_token = OS.environ['DISCORD_BOT_TOKEN']
 trigger_char = "?"
 
 @client.event
@@ -15,6 +15,6 @@ async def on_message(message):
 		return
 
 	if message.content.startswith(f"{trigger_char} hello"):
-		message.channel.send("Hello back!")
+		await message.channel.send("Hello back!")
 
 client.run(bot_token)

@@ -1,4 +1,5 @@
 # /src/main.py
+import os as OS
 import tasks.core as TasksCore
 import tasks.admin as TasksAdmin
 import tasks.util as TasksUtil
@@ -6,6 +7,10 @@ import tasks.util as TasksUtil
 # this could be determined during bot's handshake with service
 # hardcoded for now 
 chat_service = "discord"
+
+# globals
+DEFAULT_TRIGGER_CHAR = "?"
+DEFAULT_ARGS_DELIMITER = ";"
 
 match chat_service:
   case "discord":

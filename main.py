@@ -1,6 +1,5 @@
 import discord as DISCORD
 import os as OS
-import re as Regex
 import random as Random
 import requests as Requests
 import json as JSON
@@ -28,7 +27,6 @@ DB["indicators_of_sadness"] = [
 def get_inspiring_quote():
 	response = Requests.get("https://www.zenquotes.io/api/random")
 	data = JSON.loads(response.text)
-	print(data)
 	return data[0]['q'] + "\n - " + data[0]['a']
 
 def add_encouragement(new_msg):

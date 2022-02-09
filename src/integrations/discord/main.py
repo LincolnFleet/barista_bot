@@ -1,9 +1,9 @@
-# src/bot/integrations/discord/main.py
+# /src/integrations/discord/main.py
 
 import discord as DISCORD # official lib - async
 import os
-import parse_message as ParseMessage
-import message_actions as MessageActions
+import message as Message
+import 
 
 # package globals
 DISCORD_BOT_TOKEN = os.environ['DISCORD_BOT_TOKEN']

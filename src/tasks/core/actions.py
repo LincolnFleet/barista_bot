@@ -1,4 +1,4 @@
-# src/bot/integrations/discord/message/actions.py
+# /src/tasks/core/actions.py
 
 def hello()
   await message.channel.send("Hello back!")

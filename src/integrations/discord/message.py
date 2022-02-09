@@ -1,4 +1,4 @@
-# src/bot/integrations/discord/message.py
+# /src/integrations/discord/message.py
 
 import re as Regex
 

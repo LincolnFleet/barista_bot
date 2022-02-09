@@ -1,4 +1,4 @@
-# src/bot/main.py
+# /src/main.py
 import tasks.core as TasksCore
 import tasks.admin as TasksAdmin
 import tasks.util as TasksUtil

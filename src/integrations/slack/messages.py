@@ -1,4 +1,4 @@
-# /src/integrations/slack/message.py
+# /src/integrations/slack/messages.py
 import re as Regex
 
 # parses slack's event messages into a common API

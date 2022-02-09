@@ -2,7 +2,7 @@
 
 import discord as DISCORD # official lib - async
 import os as OS
-import message as Message
+import Message
 
 # integration bindings
 discord_args_delimiter = DEFAULT_ARGS_DELIMITER
@@ -27,10 +27,13 @@ async def on_message(message):
   if message.author == discord_client.user:
     return
 
-  # remove beginning and end whitespace from message content
-  message.content = message.content.strip()
+	parsed = Message(message)
 
-  if message.content.startswith(discord_trigger):
-    { original, trigger, action, arguments } = Message.parse(message)
+  if parsed.trigger == discord_trigger:
+		match parsed.action:
+			case "hello":
+				await message.channel.send("Hello back!")
+			case _:
+				await message.channel.send(f"Unrecognized command: {parsed.action}")
 
 discord_client.run(discord_bot_token)

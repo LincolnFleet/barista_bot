@@ -1,21 +1,23 @@
 import discord as DISCORD
 import os as OS
-import random
-import requests
-import json
+import re as Regex
+import random as Random
+import requests as Requests
+import json as JSON
+from replit import db as DB
 
 client = DISCORD.Client()
 bot_token = OS.environ['DISCORD_BOT_TOKEN']
 trigger_char = "?"
 
-inspiring_quotes = [
+DB["encouragements"] = [
 	"Cheer up!",
 	"Suck it up!",
 	"Stop breaking shit!",
 	"You weren't this pathetic this morning. What happened?"
 ]
 
-indicators_of_sadness = [
+DB["indicators_of_sadness"] = [
 	"sad",
 	"depressed",
 	"overwhelmed",
@@ -24,9 +26,23 @@ indicators_of_sadness = [
 ]
 
 def get_inspiring_quote():
-	response = requests.get("https://www.zenquotes.io/api/random")
-	data = json.loads(response.text)
+	response = Requests.get("https://www.zenquotes.io/api/Random")
+	data = JSON.loads(response.text)
 	return data[0]['q'] + " -" + data[0]['a']
+
+def add_encouragement(new_msg):
+	if "encouragements" in DB.keys():
+		encouragements = DB["encouragements"]
+		encouragements.append(new_msg)
+		DB["encouragements"] = encouragements
+	else:
+		DB["encouragements"] = [new_msg]
+
+def delete_encouragement(target_idx):
+	encouragements = DB["ecouragements"]
+	if len(encouragements) > target_idx:
+		del encouragements[target_idx]
+		DB["encouragements"] = encouragements
 
 @client.event
 async def on_ready():
@@ -40,16 +56,27 @@ async def on_message(message):
 	msg = message.content
 
 	# ignore any message that doesn't start with trigger
-	if msg.startswith(f"{trigger_char} "):
-		if msg[2:].startswith("hello"):
+	if msg.startswith(trigger_char):
+
+		if msg.startswith("?hello"):
 			await message.channel.send("Hello back!")
-		if msg[2:].startswith("goodbye"):
+
+		if msg.startswith("?goodbye"):
 			await message.channel.send("Until next time!")
-		if msg[2:].startswith("inspire"):
+
+		if msg.startswith("?inspire"):
 			await message.channel.send(get_inspiring_quote())
+		
+		if msg.startswith("?new "):
+			new_entry = msg.split("?new ", 1)
+			if new_entry.startswith("encouragement "):
+				new_msg = new_entry.split("encouragement ", 1)
+				add_encouragement(new_msg)
+
+
 	# tasks which don't require the message to start with trigger
 	else:
-		if any(word in msg for word in indicators_of_sadness):
-			await message.channel.send(random.choice(inspiring_quotes))
+		if any(word in msg for word in DB["indicators_of_sadness"]):
+			await message.channel.send(Random.choice(DB["encouragements"]))
 
 client.run(bot_token)
